@@ -98,26 +98,14 @@ export default function Footer() {
           {/* Contact & Social */}
           <div className="mt-10 xl:mt-0">
             <h3 className="text-sm font-semibold text-gray-900">Contact</h3>
-            <ul role="list" className="mt-4 space-y-3">
-              <li>
-                <a
-                  href="mailto:hello@agentlens.app"
-                  className="text-sm text-gray-600 hover:text-cyan-500 transition-colors"
-                >
-                  hello@agentlens.app
-                </a>
-                <span className="text-xs text-gray-400 ml-2">General</span>
-              </li>
-              <li>
-                <a
-                  href="mailto:support@agentlens.app"
-                  className="text-sm text-gray-600 hover:text-cyan-500 transition-colors"
-                >
-                  support@agentlens.app
-                </a>
-                <span className="text-xs text-gray-400 ml-2">Support</span>
-              </li>
-            </ul>
+            <div className="mt-4">
+              <a
+                href="mailto:support@agentlens.app"
+                className="text-sm text-gray-600 hover:text-cyan-500 transition-colors"
+              >
+                support@agentlens.app
+              </a>
+            </div>
             <div className="mt-6 flex gap-4">
               {socialLinks.map((item) => (
                 <a
