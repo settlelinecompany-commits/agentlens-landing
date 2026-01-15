@@ -36,7 +36,11 @@ const featureVariants = {
   }),
 };
 
-export function Pricing() {
+interface PricingProps {
+  onCtaClick?: () => void;
+}
+
+export function Pricing({ onCtaClick }: PricingProps) {
   return (
     <section id="pricing" className="relative py-24 px-4 sm:px-6 lg:px-8 bg-white">
       <div className="max-w-3xl mx-auto">
@@ -109,7 +113,10 @@ export function Pricing() {
 
           {/* CTA Button */}
           <div className="mt-6 sm:mt-8">
-            <button className="w-full py-3 sm:py-4 px-6 rounded-lg font-semibold text-base bg-cyan-500 text-white hover:bg-cyan-600 hover:shadow-lg hover:shadow-cyan-200 transition-all duration-200 min-h-[48px]">
+            <button
+              onClick={onCtaClick}
+              className="w-full py-3 sm:py-4 px-6 rounded-lg font-semibold text-base bg-cyan-500 text-white hover:bg-cyan-600 hover:shadow-lg hover:shadow-cyan-200 transition-all duration-200 min-h-[48px]"
+            >
               Get Your Quote
             </button>
           </div>

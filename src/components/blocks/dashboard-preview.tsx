@@ -90,9 +90,11 @@ interface TimelinePhaseCardProps {
   phase: TimelinePhase;
   index: number;
   isLast: boolean;
+  showFreeCta?: boolean;
+  onCtaClick?: () => void;
 }
 
-function TimelinePhaseCard({ phase, index, isLast }: TimelinePhaseCardProps) {
+function TimelinePhaseCard({ phase, index, isLast, showFreeCta, onCtaClick }: TimelinePhaseCardProps) {
   return (
     <motion.div
       variants={phaseVariants}
@@ -154,6 +156,26 @@ function TimelinePhaseCard({ phase, index, isLast }: TimelinePhaseCardProps) {
             <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
               {phase.description}
             </p>
+
+            {/* Free Assessment CTA - Only for first phase */}
+            {showFreeCta && (
+              <div className="mt-4 pt-4 border-t border-gray-100">
+                <button
+                  onClick={onCtaClick}
+                  className={cn(
+                    'inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-lg transition-all',
+                    'bg-green-500 text-white hover:bg-green-600',
+                    'hover:shadow-lg hover:shadow-green-500/30'
+                  )}
+                >
+                  Get Free Assessment
+                  <ArrowRight className="h-4 w-4" />
+                </button>
+                <p className="text-xs text-gray-500 mt-2">
+                  Limited time: Free assessment, no commitment. Not happy? Walk away.
+                </p>
+              </div>
+            )}
           </div>
         </motion.div>
       </div>
@@ -213,6 +235,8 @@ export function DashboardPreview({ className, onCtaClick }: DashboardPreviewProp
               phase={phase}
               index={index}
               isLast={index === timelinePhases.length - 1}
+              showFreeCta={index === 0}
+              onCtaClick={onCtaClick}
             />
           ))}
         </motion.div>

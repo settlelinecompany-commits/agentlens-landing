@@ -1,3 +1,6 @@
+'use client';
+
+import { useState } from 'react';
 import Navbar from '../components/blocks/navbar';
 import Hero from '../components/blocks/hero';
 import TrustBar from '../components/blocks/trust-bar';
@@ -10,9 +13,12 @@ import FAQ from '../components/blocks/faq';
 import FinalCTA from '../components/blocks/final-cta';
 import BlogSection from '../components/blocks/blog-section';
 import Footer from '../components/blocks/footer';
+import ContactFormModal from '../components/blocks/contact-form-modal';
 import { getFeaturedBlogPosts } from '../lib/content';
 
 export default function Home() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   // Get 3 featured blog posts for the homepage
   let featuredPosts: ReturnType<typeof getFeaturedBlogPosts> = [];
   try {
@@ -21,22 +27,26 @@ export default function Home() {
     console.error('Error loading featured blog posts:', error);
   }
 
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
   return (
     <div className="min-h-screen bg-white">
       <Navbar />
       <main>
-        <Hero />
+        <Hero onPrimaryClick={openModal} />
         <TrustBar />
         <TransformationCards />
         <ProblemSection />
-        <DashboardPreview />
+        <DashboardPreview onCtaClick={openModal} />
         <Features />
-        <Pricing />
+        <Pricing onCtaClick={openModal} />
         <FAQ />
-        <FinalCTA />
+        <FinalCTA onPrimaryClick={openModal} onSecondaryClick={openModal} />
         <BlogSection posts={featuredPosts} />
       </main>
       <Footer />
+      <ContactFormModal isOpen={isModalOpen} onClose={closeModal} />
     </div>
   );
 }
