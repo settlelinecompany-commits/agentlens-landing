@@ -7,20 +7,36 @@ import { ChevronDown, MessageCircle } from 'lucide-react';
 
 const faqs = [
   {
-    question: 'How is this different from LangSmith?',
-    answer: `AgentLens is designed specifically for observability, not evaluation. While LangSmith focuses on prompt testing and evaluation workflows, AgentLens gives you deep visibility into production traces with real-time cost tracking and decision attribution. We integrate with any OpenTelemetry-compatible agent, not just LangChain. Think of it as Datadog for AI agents - focused on understanding what's happening in production.`,
+    question: 'What if my app is too complex for 24 hours?',
+    answer: `We'll tell you upfront. During the initial assessment, we scope the work and give you an honest timeline. Some apps need 48-72 hours. Complex enterprise projects need a different engagement model. We'll never promise 24 hours if we can't deliver.`,
   },
   {
-    question: 'What trace formats do you support?',
-    answer: `We support OpenTelemetry (OTLP) natively, which means any OTel-instrumented application works out of the box. We also have first-class integrations for LangChain, LlamaIndex, CrewAI, and AutoGen. For custom agents, our SDK supports Python and TypeScript with a simple decorator/wrapper pattern. If you're using something else, reach out - we're adding new integrations regularly.`,
+    question: 'What AI tools do you work with?',
+    answer: `All of them. Claude Code, Cursor, Copilot, Replit, v0, Bolt, Lovable... if AI generated the code, we can ship it. Our process is tool-agnostic.`,
   },
   {
-    question: 'Is there a free tier?',
-    answer: `Yes! Our free tier includes 50,000 traces per month with 30-day retention and up to 3 team members. This is enough for most development and small production workloads. There's no credit card required to get started, and you can upgrade anytime as your needs grow.`,
+    question: 'Do I keep the code?',
+    answer: `100%. You own everything. The original code, our improvements, the infrastructure configs, all documentation. Full IP transfer, no strings attached.`,
   },
   {
-    question: 'Can I self-host?',
-    answer: `Enterprise customers can deploy AgentLens on-premise or in their own cloud environment. This includes full data sovereignty, custom retention policies, and integration with your existing observability stack. Self-hosted deployments include dedicated support and SLA guarantees. Contact our sales team for details.`,
+    question: 'What if something breaks after launch?',
+    answer: `Every sprint includes a 30-day support window. If something we deployed breaks, we fix it at no extra cost. After 30 days, you can extend support or handle maintenance yourself with our documentation.`,
+  },
+  {
+    question: 'Can you add new features too?',
+    answer: `Our sprint focuses on shipping what you've built. But many clients come back for feature sprints after launch. We can scope ongoing development separately.`,
+  },
+  {
+    question: "What's your tech stack?",
+    answer: `We're stack-flexible. Most vibe-coded apps are JavaScript/TypeScript (Next.js, React, Node), Python (FastAPI, Django), or serverless. We deploy to Vercel, AWS, Railway, Render... whatever fits your app and budget.`,
+  },
+  {
+    question: "How do I know you won't steal my idea?",
+    answer: `We sign NDAs for every engagement. We have no interest in your business model, only in shipping your code. We've shipped 500+ apps across every industry. Your idea is safe.`,
+  },
+  {
+    question: 'What do you need from me?',
+    answer: `Access to your repo (GitHub/GitLab), a 15-minute kickoff call, and availability for async questions during the sprint. That's it. Most founders spend less than an hour total.`,
   },
 ];
 
@@ -112,10 +128,10 @@ export function FAQ() {
           className="text-center mb-12"
         >
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-            Frequently asked questions
+            Questions
           </h2>
           <p className="text-lg text-gray-600">
-            Everything you need to know about AgentLens
+            Everything you need to know about the 24-Hour Sprint
           </p>
         </motion.div>
 

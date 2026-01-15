@@ -46,16 +46,16 @@ function Navbar({ className }: NavbarProps) {
           {/* Desktop Navigation Links */}
           <div className="hidden md:flex items-center gap-8">
             <a
-              href="#features"
-              className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
-            >
-              Features
-            </a>
-            <a
               href="#how-it-works"
               className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
             >
               How It Works
+            </a>
+            <a
+              href="#features"
+              className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
+            >
+              What We Add
             </a>
             <a
               href="#pricing"
@@ -63,18 +63,24 @@ function Navbar({ className }: NavbarProps) {
             >
               Pricing
             </a>
+            <a
+              href="#faq"
+              className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
+            >
+              FAQ
+            </a>
           </div>
 
           {/* Desktop CTA Button */}
           <a
-            href="#get-started"
+            href="#pricing"
             className={cn(
               'hidden md:inline-flex items-center justify-center px-4 py-2 text-sm font-semibold rounded-lg transition-all',
               'bg-cyan-500 text-white hover:bg-cyan-600',
               'hover:shadow-lg hover:shadow-cyan-500/25'
             )}
           >
-            Get Started Free
+            Ship Your App
           </a>
 
           {/* Mobile Hamburger Button */}
@@ -103,18 +109,18 @@ function Navbar({ className }: NavbarProps) {
       >
         <div className="flex flex-col px-4 py-6 space-y-4">
           <a
-            href="#features"
-            onClick={handleLinkClick}
-            className="text-base font-medium text-gray-600 hover:text-gray-900 py-2 border-b border-gray-100 transition-colors"
-          >
-            Features
-          </a>
-          <a
             href="#how-it-works"
             onClick={handleLinkClick}
             className="text-base font-medium text-gray-600 hover:text-gray-900 py-2 border-b border-gray-100 transition-colors"
           >
             How It Works
+          </a>
+          <a
+            href="#features"
+            onClick={handleLinkClick}
+            className="text-base font-medium text-gray-600 hover:text-gray-900 py-2 border-b border-gray-100 transition-colors"
+          >
+            What We Add
           </a>
           <a
             href="#pricing"
@@ -124,7 +130,14 @@ function Navbar({ className }: NavbarProps) {
             Pricing
           </a>
           <a
-            href="#get-started"
+            href="#faq"
+            onClick={handleLinkClick}
+            className="text-base font-medium text-gray-600 hover:text-gray-900 py-2 border-b border-gray-100 transition-colors"
+          >
+            FAQ
+          </a>
+          <a
+            href="#pricing"
             onClick={handleLinkClick}
             className={cn(
               'inline-flex items-center justify-center px-4 py-3 text-base font-semibold rounded-lg transition-all mt-4',
@@ -132,7 +145,7 @@ function Navbar({ className }: NavbarProps) {
               'hover:shadow-lg hover:shadow-cyan-500/25'
             )}
           >
-            Get Started Free
+            Ship Your App
           </a>
         </div>
       </div>

@@ -1,74 +1,16 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { cn } from '@/lib/utils';
-import { Check } from 'lucide-react';
+import { Check, Shield } from 'lucide-react';
 
-const tiers = [
-  {
-    name: 'Free',
-    price: '$0',
-    period: 'forever',
-    description: 'Perfect for getting started and small projects',
-    features: [
-      '50K traces / month',
-      '30-day retention',
-      '3 team members',
-      'Basic trace visualization',
-      'Community support',
-    ],
-    cta: 'Get Started',
-    ctaVariant: 'secondary',
-    highlighted: false,
-  },
-  {
-    name: 'Pro',
-    price: '$29',
-    period: '/month',
-    description: 'For growing teams shipping production agents',
-    features: [
-      '500K traces / month',
-      '90-day retention',
-      '10 team members',
-      'Advanced analytics',
-      'Cost alerts & budgets',
-      'Priority support',
-      'SSO (coming soon)',
-    ],
-    cta: 'Start Free Trial',
-    ctaVariant: 'primary',
-    highlighted: true,
-  },
-  {
-    name: 'Enterprise',
-    price: 'Custom',
-    period: '',
-    description: 'For organizations with advanced requirements',
-    features: [
-      'Unlimited traces',
-      'Custom retention',
-      'Unlimited team members',
-      'SLA guarantee',
-      'Dedicated support',
-      'On-premise option',
-      'Custom integrations',
-    ],
-    cta: 'Contact Us',
-    ctaVariant: 'secondary',
-    highlighted: false,
-  },
+const features = [
+  'Full production deployment',
+  'Authentication & security',
+  'Error handling & monitoring',
+  'Test coverage for critical paths',
+  'Documentation & handoff',
+  '30-day support window',
 ];
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.1,
-    },
-  },
-};
 
 const cardVariants = {
   hidden: { opacity: 0, y: 30 },
@@ -82,111 +24,142 @@ const cardVariants = {
   },
 };
 
+const featureVariants = {
+  hidden: { opacity: 0, x: -10 },
+  visible: (i: number) => ({
+    opacity: 1,
+    x: 0,
+    transition: {
+      delay: 0.3 + i * 0.1,
+      duration: 0.3,
+    },
+  }),
+};
+
 export function Pricing() {
   return (
     <section id="pricing" className="relative py-24 px-4 sm:px-6 lg:px-8 bg-white">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-3xl mx-auto">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-            Simple, transparent pricing
+            Outcome-Based Pricing
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Start free. Scale as you grow. No hidden fees.
+            You pay when it ships. Not before.
           </p>
         </motion.div>
 
+        {/* Single Pricing Card */}
         <motion.div
-          variants={containerVariants}
+          variants={cardVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-50px' }}
-          className="grid md:grid-cols-3 gap-8 items-start"
+          className="relative p-8 sm:p-10 rounded-2xl bg-white border-2 border-cyan-400 shadow-xl shadow-cyan-100 transition-all duration-300 hover:shadow-2xl hover:shadow-cyan-200"
         >
-          {tiers.map((tier, index) => (
-            <motion.div
-              key={index}
-              variants={cardVariants}
-              className={cn(
-                'relative p-8 rounded-2xl',
-                tier.highlighted
-                  ? 'bg-white border-2 border-cyan-400 shadow-xl shadow-cyan-100'
-                  : 'bg-white border-2 border-gray-200 shadow-md',
-                'transition-all duration-300 hover:shadow-lg'
-              )}
-            >
-              {/* Popular badge */}
-              {tier.highlighted && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                  <span className="px-3 py-1 text-xs font-medium bg-cyan-500 text-white rounded-full">
-                    Most Popular
-                  </span>
-                </div>
-              )}
+          {/* Badge */}
+          <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+            <span className="px-4 py-1 text-xs font-medium bg-cyan-500 text-white rounded-full">
+              Fixed Price
+            </span>
+          </div>
 
-              <div className="mb-6">
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                  {tier.name}
-                </h3>
-                <div className="flex items-baseline gap-1">
-                  <span className="text-4xl font-bold text-gray-900">
-                    {tier.price}
-                  </span>
-                  {tier.period && (
-                    <span className="text-gray-500 text-sm">
-                      {tier.period}
-                    </span>
-                  )}
-                </div>
-                <p className="text-sm text-gray-600 mt-2">
-                  {tier.description}
-                </p>
-              </div>
+          <div className="text-center mb-8">
+            <h3 className="text-2xl font-semibold text-gray-900 mb-4">
+              24-Hour Sprint
+            </h3>
+            <div className="flex items-baseline justify-center gap-2">
+              <span className="text-5xl sm:text-6xl font-bold text-gray-900">
+                $2,400
+              </span>
+            </div>
+            <p className="text-gray-500 mt-2">
+              flat rate*
+            </p>
+          </div>
 
-              <ul className="space-y-3 mb-8">
-                {tier.features.map((feature, featureIndex) => (
-                  <li key={featureIndex} className="flex items-start gap-3">
-                    <Check
-                      className={cn(
-                        'w-5 h-5 mt-0.5 flex-shrink-0',
-                        tier.highlighted ? 'text-cyan-500' : 'text-gray-400'
-                      )}
-                    />
-                    <span className="text-sm text-gray-600">
-                      {feature}
-                    </span>
-                  </li>
-                ))}
-              </ul>
+          <div className="border-t border-gray-100 pt-8">
+            <p className="text-sm font-medium text-gray-700 mb-4 text-center">
+              Everything you need to ship:
+            </p>
+            <ul className="space-y-3 max-w-md mx-auto">
+              {features.map((feature, index) => (
+                <motion.li
+                  key={index}
+                  custom={index}
+                  variants={featureVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  className="flex items-start gap-3"
+                >
+                  <Check className="w-5 h-5 mt-0.5 flex-shrink-0 text-cyan-500" />
+                  <span className="text-gray-600">{feature}</span>
+                </motion.li>
+              ))}
+            </ul>
+          </div>
 
-              <button
-                className={cn(
-                  'w-full py-3 px-4 rounded-lg font-medium text-sm transition-all duration-200',
-                  tier.ctaVariant === 'primary'
-                    ? 'bg-cyan-500 text-white hover:bg-cyan-600 hover:shadow-lg hover:shadow-cyan-200'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200'
-                )}
-              >
-                {tier.cta}
-              </button>
-            </motion.div>
-          ))}
+          {/* CTA Button */}
+          <div className="mt-8">
+            <button className="w-full py-4 px-6 rounded-lg font-semibold text-base bg-cyan-500 text-white hover:bg-cyan-600 hover:shadow-lg hover:shadow-cyan-200 transition-all duration-200">
+              Get Your Quote
+            </button>
+          </div>
         </motion.div>
 
-        {/* Additional note */}
+        {/* Price Anchor */}
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.5, duration: 0.5 }}
-          className="text-center text-sm text-gray-500 mt-12"
+          transition={{ delay: 0.4, duration: 0.5 }}
+          className="text-center text-sm text-gray-600 mt-8 max-w-xl mx-auto"
         >
-          All plans include: OpenTelemetry support, LangChain integration, unlimited projects
+          That&apos;s $300/hour of senior engineering time. Most agencies charge $200/hour with no outcome guarantee.
+        </motion.p>
+
+        {/* Guarantee Box */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.5, duration: 0.5 }}
+          className="mt-10 p-6 sm:p-8 rounded-xl bg-gradient-to-br from-cyan-50 to-cyan-100/50 border border-cyan-200"
+        >
+          <div className="flex items-start gap-4">
+            <div className="flex-shrink-0">
+              <div className="w-12 h-12 rounded-full bg-cyan-500 flex items-center justify-center">
+                <Shield className="w-6 h-6 text-white" />
+              </div>
+            </div>
+            <div>
+              <h4 className="text-lg font-semibold text-gray-900 mb-2">
+                The AgentLens Guarantee
+              </h4>
+              <p className="text-gray-600">
+                If we can&apos;t ship your app in 24 hours, you don&apos;t pay. No questions, no negotiations. You keep all the code and improvements we&apos;ve made.
+              </p>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Footnote */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.6, duration: 0.5 }}
+          className="text-center text-xs text-gray-400 mt-8"
+        >
+          *For standard complexity apps. Complex apps (multiple integrations, real-time features, or heavy data processing) scoped individually.
         </motion.p>
       </div>
     </section>

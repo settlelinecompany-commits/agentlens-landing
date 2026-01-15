@@ -2,89 +2,44 @@
 
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import { Eye, Lightbulb, DollarSign, Check, X, Clock, Zap } from 'lucide-react';
+import { Lock, AlertCircle, Activity, Shield, CheckCircle, FileText } from 'lucide-react';
 
 const features = [
   {
-    title: 'See What Actually Happened',
-    description: 'Complete trace visualization shows every step your agent took, every tool call, every decision point.',
-    icon: Eye,
+    title: 'Production Authentication',
+    description: 'Real auth flows with proper session handling, password reset, OAuth integration, and rate limiting. Not just a password field.',
+    icon: Lock,
     color: 'cyan',
-    mockup: (
-      <div className="mt-4 p-3 bg-gray-50 rounded-lg border border-gray-200">
-        <div className="space-y-2">
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center">
-              <Check className="w-3 h-3 text-green-600" />
-            </div>
-            <div className="flex-1 h-2 bg-green-200 rounded" style={{ width: '60%' }} />
-            <span className="text-xs text-gray-500 font-mono">45ms</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center">
-              <Check className="w-3 h-3 text-green-600" />
-            </div>
-            <div className="flex-1 h-2 bg-green-200 rounded" style={{ width: '80%' }} />
-            <span className="text-xs text-gray-500 font-mono">120ms</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-full bg-red-100 flex items-center justify-center">
-              <X className="w-3 h-3 text-red-600" />
-            </div>
-            <div className="flex-1 h-2 bg-red-200 rounded" style={{ width: '40%' }} />
-            <span className="text-xs text-red-500 font-mono">Error</span>
-          </div>
-        </div>
-      </div>
-    ),
   },
   {
-    title: 'Know Why It Decided That',
-    description: 'See the reasoning chain, context window, and decision factors that led to each action.',
-    icon: Lightbulb,
+    title: 'Error Handling',
+    description: "Graceful degradation, user-friendly error messages, automatic retry logic, and proper logging. Your app recovers instead of crashing.",
+    icon: AlertCircle,
+    color: 'amber',
+  },
+  {
+    title: 'Monitoring & Alerting',
+    description: "Know what's happening in production. Performance metrics, error tracking, uptime monitoring, and alerts before users complain.",
+    icon: Activity,
     color: 'blue',
-    mockup: (
-      <div className="mt-4 p-3 bg-gray-50 rounded-lg border border-gray-200">
-        <div className="space-y-2 text-xs">
-          <div className="flex items-start gap-2">
-            <span className="text-blue-500 font-bold">1.</span>
-            <span className="text-gray-600">Checked user_tier = "premium"</span>
-          </div>
-          <div className="flex items-start gap-2">
-            <span className="text-blue-500 font-bold">2.</span>
-            <span className="text-gray-600">Found 0 matching products</span>
-          </div>
-          <div className="flex items-start gap-2">
-            <span className="text-red-500 font-bold">3.</span>
-            <span className="text-red-600">No fallback → Error thrown</span>
-          </div>
-        </div>
-      </div>
-    ),
   },
   {
-    title: 'Know What It Cost',
-    description: 'Token-level economics for every trace. Identify expensive patterns and optimize spend.',
-    icon: DollarSign,
+    title: 'Security Hardening',
+    description: 'Input sanitization, SQL injection prevention, XSS protection, secure headers, and proper secrets management. Sleep at night.',
+    icon: Shield,
     color: 'green',
-    mockup: (
-      <div className="mt-4 p-3 bg-gray-50 rounded-lg border border-gray-200">
-        <div className="grid grid-cols-2 gap-3 text-center">
-          <div>
-            <div className="text-lg font-bold text-gray-900">2,847</div>
-            <div className="text-xs text-gray-500">tokens</div>
-          </div>
-          <div>
-            <div className="text-lg font-bold text-green-600">$0.024</div>
-            <div className="text-xs text-gray-500">cost</div>
-          </div>
-        </div>
-        <div className="mt-3 flex items-center justify-between text-xs">
-          <span className="text-gray-500">Input: 847</span>
-          <span className="text-gray-500">Output: 2,000</span>
-        </div>
-      </div>
-    ),
+  },
+  {
+    title: 'Test Coverage',
+    description: "Critical path tests that let you change code with confidence. Integration tests for your key flows. No more 'fix one thing, break three.'",
+    icon: CheckCircle,
+    color: 'purple',
+  },
+  {
+    title: 'Documentation',
+    description: 'Architecture overview, deployment guide, environment setup, and maintenance runbook. Future you (or your first hire) will thank you.',
+    icon: FileText,
+    color: 'rose',
   },
 ];
 
@@ -93,7 +48,7 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.2,
+      staggerChildren: 0.1,
       delayChildren: 0.1,
     },
   },
@@ -120,6 +75,13 @@ function getColorClasses(color: string) {
         border: 'hover:border-cyan-300',
         shadow: 'hover:shadow-cyan-100',
       };
+    case 'amber':
+      return {
+        icon: 'text-amber-500',
+        iconBg: 'bg-amber-100',
+        border: 'hover:border-amber-300',
+        shadow: 'hover:shadow-amber-100',
+      };
     case 'blue':
       return {
         icon: 'text-blue-500',
@@ -133,6 +95,20 @@ function getColorClasses(color: string) {
         iconBg: 'bg-green-100',
         border: 'hover:border-green-300',
         shadow: 'hover:shadow-green-100',
+      };
+    case 'purple':
+      return {
+        icon: 'text-purple-500',
+        iconBg: 'bg-purple-100',
+        border: 'hover:border-purple-300',
+        shadow: 'hover:shadow-purple-100',
+      };
+    case 'rose':
+      return {
+        icon: 'text-rose-500',
+        iconBg: 'bg-rose-100',
+        border: 'hover:border-rose-300',
+        shadow: 'hover:shadow-rose-100',
       };
     default:
       return {
@@ -162,10 +138,10 @@ export function Features() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-            Finally, visibility into your AI agents
+            We Add What AI Leaves Out
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Debug faster. Spend smarter. Ship with confidence.
+            AI is great at features. We're great at everything else.
           </p>
         </motion.div>
 
@@ -174,7 +150,7 @@ export function Features() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-50px' }}
-          className="grid md:grid-cols-3 gap-8"
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           {features.map((feature, index) => {
             const colors = getColorClasses(feature.color);
@@ -184,36 +160,33 @@ export function Features() {
               <motion.div
                 key={index}
                 variants={cardVariants}
-                whileHover={{ y: -8 }}
+                whileHover={{ y: -6 }}
                 className={cn(
-                  'group relative p-6 sm:p-8 rounded-2xl',
-                  'bg-white border-2 border-gray-200 shadow-md',
+                  'group relative p-6 rounded-2xl',
+                  'bg-white border-2 border-gray-200 shadow-sm',
                   colors.border,
                   'hover:shadow-lg',
                   'transition-all duration-300'
                 )}
               >
                 {/* Icon with background */}
-                <div className="relative mb-6">
+                <div className="relative mb-4">
                   <div className={cn(
-                    'w-16 h-16 sm:w-18 sm:h-18 rounded-2xl flex items-center justify-center',
+                    'w-12 h-12 rounded-xl flex items-center justify-center',
                     colors.iconBg,
-                    'border-2 border-white shadow-sm'
+                    'border border-white shadow-sm'
                   )}>
-                    <IconComponent className={cn('w-8 h-8', colors.icon)} />
+                    <IconComponent className={cn('w-6 h-6', colors.icon)} />
                   </div>
                 </div>
 
-                <h3 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-3">
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">
                   {feature.title}
                 </h3>
 
-                <p className="text-gray-600 text-sm mb-4 leading-relaxed">
+                <p className="text-gray-600 text-sm leading-relaxed">
                   {feature.description}
                 </p>
-
-                {/* Visual mockup */}
-                {feature.mockup}
               </motion.div>
             );
           })}

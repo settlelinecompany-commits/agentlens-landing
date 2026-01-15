@@ -2,23 +2,43 @@
 
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import { Copy, RefreshCw, XCircle } from 'lucide-react';
+import { Cloud, Clock, AlertTriangle, Code, Shield } from 'lucide-react';
 
 const painPoints = [
   {
-    icon: Copy,
-    title: 'Copy-paste debugging',
-    description: 'Manually copying logs to ChatGPT to understand what your agent did',
+    icon: Cloud,
+    title: 'The Deployment Abyss',
+    quote: "It works on my machine. Then I deploy it and... nothing.",
+    description:
+      "Your app runs perfectly in local dev. But production? CORS errors, environment variables, SSL certificates, database connections... deployment has 47 ways to fail and AI didn't warn you about any of them.",
   },
   {
-    icon: RefreshCw,
-    title: 'Manual reconstruction',
-    description: 'Piecing together agent decisions from scattered logs and database entries',
+    icon: Clock,
+    title: 'The Time Trap',
+    quote: "Claude Code built it in 20 minutes. I've spent 3 weeks trying to ship it.",
+    description:
+      "The AI made building feel easy. But shipping? You're drowning in DevOps tutorials, Stack Overflow tabs, and Discord threads. The gap between 'it works' and 'it's live' is eating your runway.",
   },
   {
-    icon: XCircle,
-    title: 'Customer apologies',
-    description: 'Explaining to customers why the AI did something unexpected - without knowing yourself',
+    icon: AlertTriangle,
+    title: 'The Quality Cliff',
+    quote: 'No error handling. First edge case = crash.',
+    description:
+      'AI-generated code handles the happy path beautifully. Then a user does something unexpected and the whole thing falls over. No error handling. No input validation. No graceful degradation.',
+  },
+  {
+    icon: Code,
+    title: 'The Maintenance Nightmare',
+    quote: 'AI duplicates code everywhere. Nobody can maintain it.',
+    description:
+      "Your codebase is a maze of duplicated functions, inconsistent patterns, and 47 npm packages you don't recognize. Every fix breaks two other things. You're afraid to touch it.",
+  },
+  {
+    icon: Shield,
+    title: 'The Security Question',
+    quote: 'Wait, is my API key just... exposed?',
+    description:
+      "You built fast. Maybe too fast. Now you're not sure what's secure and what isn't. Auth is 'good enough.' Data handling is 'probably fine.' You're one security audit away from panic.",
   },
 ];
 
@@ -27,7 +47,7 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.15,
+      staggerChildren: 0.12,
       delayChildren: 0.2,
     },
   },
@@ -51,7 +71,7 @@ export function ProblemSection() {
       {/* Subtle gradient background */}
       <div className="absolute inset-0 bg-gradient-to-b from-white via-gray-50/50 to-white" />
 
-      <div className="relative max-w-5xl mx-auto">
+      <div className="relative max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -60,12 +80,10 @@ export function ProblemSection() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
-            <span className="text-gray-400">"</span>
-            I don't know why it did that.
-            <span className="text-gray-400">"</span>
+            Sound Familiar?
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Sound familiar? You're not alone. Every AI agent builder faces this moment.
+            You're not alone. Every vibe-coder hits the same wall.
           </p>
         </motion.div>
 
@@ -74,7 +92,7 @@ export function ProblemSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-50px' }}
-          className="grid md:grid-cols-3 gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           {painPoints.map((point, index) => {
             const IconComponent = point.icon;
@@ -86,7 +104,11 @@ export function ProblemSection() {
                   'group relative p-6 rounded-xl',
                   'bg-white border-2 border-gray-200 shadow-sm',
                   'hover:border-red-200 hover:shadow-md',
-                  'transition-all duration-300'
+                  'transition-all duration-300',
+                  // Center the last two cards on desktop when we have 5 items
+                  index >= 3 && 'lg:col-span-1',
+                  index === 3 && 'lg:col-start-1',
+                  index === 4 && 'lg:col-start-2 md:col-start-2'
                 )}
               >
                 {/* Red accent indicator */}
@@ -99,6 +121,9 @@ export function ProblemSection() {
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">
                     {point.title}
                   </h3>
+                  <p className="text-red-600/80 text-sm font-medium italic mb-3">
+                    "{point.quote}"
+                  </p>
                   <p className="text-gray-600 text-sm leading-relaxed">
                     {point.description}
                   </p>
@@ -116,7 +141,7 @@ export function ProblemSection() {
           transition={{ delay: 0.6, duration: 0.5 }}
           className="mt-12 text-center"
         >
-          <p className="text-gray-500 text-sm">
+          <p className="text-gray-500 text-sm italic">
             There has to be a better way.
           </p>
         </motion.div>

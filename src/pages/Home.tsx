@@ -5,6 +5,7 @@ import DashboardPreview from '../components/blocks/dashboard-preview';
 import Features from '../components/blocks/features';
 import Pricing from '../components/blocks/pricing';
 import FAQ from '../components/blocks/faq';
+import FinalCTA from '../components/blocks/final-cta';
 import Footer from '../components/blocks/footer';
 
 export default function Home() {
@@ -18,6 +19,7 @@ export default function Home() {
         <Features />
         <Pricing />
         <FAQ />
+        <FinalCTA />
       </main>
       <Footer />
     </div>

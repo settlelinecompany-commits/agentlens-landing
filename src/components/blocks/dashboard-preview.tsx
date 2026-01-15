@@ -2,15 +2,13 @@
 
 import { motion } from 'framer-motion';
 import {
-  Check,
-  X,
+  ClipboardCheck,
+  Shield,
+  Server,
+  TestTube,
+  FileCheck,
+  ArrowRight,
   Clock,
-  Zap,
-  AlertCircle,
-  ChevronRight,
-  Brain,
-  Database,
-  MessageSquare
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -19,17 +17,17 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.15,
+      staggerChildren: 0.2,
       delayChildren: 0.1,
     },
   },
 };
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 40 },
+const phaseVariants = {
+  hidden: { opacity: 0, x: -30 },
   visible: {
     opacity: 1,
-    y: 0,
+    x: 0,
     transition: {
       duration: 0.6,
       ease: 'easeOut',
@@ -37,312 +35,141 @@ const cardVariants = {
   },
 };
 
-interface TraceStep {
+interface TimelinePhase {
   id: string;
-  name: string;
-  status: 'success' | 'error' | 'pending';
-  duration?: string;
+  hours: string;
+  title: string;
+  description: string;
   icon: React.ReactNode;
 }
 
-interface ContextValue {
-  key: string;
-  value: string;
-  source: string;
+const timelinePhases: TimelinePhase[] = [
+  {
+    id: '1',
+    hours: '0-2',
+    title: 'Assessment',
+    description:
+      'You share your repo. We audit for deployment blockers, security gaps, and production requirements. You get a detailed scope and fixed quote.',
+    icon: <ClipboardCheck className="w-6 h-6" />,
+  },
+  {
+    id: '2',
+    hours: '2-8',
+    title: 'Hardening',
+    description:
+      'We add what AI left out: error handling, input validation, environment configuration, security patches, and production logging.',
+    icon: <Shield className="w-6 h-6" />,
+  },
+  {
+    id: '3',
+    hours: '8-16',
+    title: 'Infrastructure',
+    description:
+      'We set up your production environment: hosting, database, CDN, SSL, monitoring, and CI/CD. Everything configured correctly the first time.',
+    icon: <Server className="w-6 h-6" />,
+  },
+  {
+    id: '4',
+    hours: '16-22',
+    title: 'Testing & Deploy',
+    description:
+      'We test edge cases, verify integrations, run security checks, and deploy. Your app goes live with proper monitoring and alerting.',
+    icon: <TestTube className="w-6 h-6" />,
+  },
+  {
+    id: '5',
+    hours: '22-24',
+    title: 'Handoff',
+    description:
+      'You get full documentation, access credentials, monitoring dashboards, and a 30-minute walkthrough. You\'re in control.',
+    icon: <FileCheck className="w-6 h-6" />,
+  },
+];
+
+interface TimelinePhaseCardProps {
+  phase: TimelinePhase;
+  index: number;
+  isLast: boolean;
+}
+
+function TimelinePhaseCard({ phase, index, isLast }: TimelinePhaseCardProps) {
+  return (
+    <motion.div
+      variants={phaseVariants}
+      className="relative flex gap-6 md:gap-8"
+    >
+      {/* Timeline line and node */}
+      <div className="flex flex-col items-center">
+        {/* Hour marker */}
+        <motion.div
+          initial={{ scale: 0 }}
+          whileInView={{ scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: index * 0.15, duration: 0.4, type: 'spring' }}
+          className="relative z-10 flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-gradient-to-br from-cyan-500 to-cyan-600 text-white shadow-lg shadow-cyan-500/30"
+        >
+          {phase.icon}
+        </motion.div>
+
+        {/* Connecting line */}
+        {!isLast && (
+          <motion.div
+            initial={{ scaleY: 0 }}
+            whileInView={{ scaleY: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: index * 0.15 + 0.2, duration: 0.5 }}
+            style={{ transformOrigin: 'top' }}
+            className="w-0.5 flex-1 min-h-[80px] bg-gradient-to-b from-cyan-400 to-cyan-200"
+          />
+        )}
+      </div>
+
+      {/* Content card */}
+      <div className="flex-1 pb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: index * 0.15 + 0.1, duration: 0.5 }}
+          className="group relative overflow-hidden rounded-2xl border-2 border-gray-200 bg-white p-6 shadow-sm hover:border-cyan-300 hover:shadow-lg transition-all duration-300"
+        >
+          {/* Subtle gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-cyan-50/50 via-transparent to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+          <div className="relative">
+            {/* Hour badge */}
+            <div className="flex items-center gap-3 mb-3">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 text-sm font-semibold bg-cyan-50 text-cyan-700 border border-cyan-200 rounded-full">
+                <Clock className="w-3.5 h-3.5" />
+                Hour {phase.hours}
+              </span>
+            </div>
+
+            {/* Title */}
+            <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+              {phase.title}
+            </h3>
+
+            {/* Description */}
+            <p className="text-gray-600 leading-relaxed">
+              {phase.description}
+            </p>
+          </div>
+        </motion.div>
+      </div>
+    </motion.div>
+  );
 }
 
 interface DashboardPreviewProps {
   className?: string;
+  onCtaClick?: () => void;
 }
 
-const traceSteps: TraceStep[] = [
-  {
-    id: '1',
-    name: 'Parse intent',
-    status: 'success',
-    duration: '45ms',
-    icon: <Brain className="w-4 h-4" />,
-  },
-  {
-    id: '2',
-    name: 'Query database',
-    status: 'success',
-    duration: '120ms',
-    icon: <Database className="w-4 h-4" />,
-  },
-  {
-    id: '3',
-    name: 'Generate response',
-    status: 'error',
-    duration: '175ms',
-    icon: <MessageSquare className="w-4 h-4" />,
-  },
-];
-
-const contextValues: ContextValue[] = [
-  {
-    key: 'user_tier',
-    value: 'premium',
-    source: 'user_profile',
-  },
-  {
-    key: 'query_type',
-    value: 'product_search',
-    source: 'intent_parser',
-  },
-  {
-    key: 'result_count',
-    value: '0',
-    source: 'database',
-  },
-];
-
-function TraceVisualizationCard() {
-  return (
-    <div className="relative overflow-hidden rounded-2xl border-2 border-gray-200 bg-white shadow-lg hover:border-cyan-300 transition-all duration-300">
-      {/* Subtle gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-cyan-50/50 via-transparent to-transparent pointer-events-none" />
-
-      <div className="relative p-6">
-        <div className="flex items-start justify-between mb-6">
-          <div className="space-y-1">
-            <h3 className="text-xl font-semibold text-gray-900">
-              Customer Support Agent
-            </h3>
-            <div className="flex items-center gap-2 text-sm text-gray-500">
-              <span className="flex items-center gap-1">
-                <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-                Execution Failed
-              </span>
-              <span className="text-gray-300">|</span>
-              <span className="font-mono text-xs">trace_id: a7f8c2</span>
-            </div>
-          </div>
-
-          <div className="flex flex-col items-end gap-2">
-            <span className="px-2 py-1 text-xs font-mono bg-cyan-50 text-cyan-600 border border-cyan-200 rounded-md">
-              2,847 tokens
-            </span>
-            <span className="px-2 py-1 text-xs font-mono bg-gray-100 text-gray-600 border border-gray-200 rounded-md">
-              340ms
-            </span>
-          </div>
-        </div>
-
-        <div className="space-y-2">
-          {traceSteps.map((step, index) => (
-            <motion.div
-              key={step.id}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: index * 0.1 + 0.3, duration: 0.4 }}
-              className={cn(
-                'group relative flex items-center gap-3 p-3 rounded-lg transition-all',
-                'hover:bg-gray-50',
-                step.status === 'error' && 'bg-red-50 border border-red-200'
-              )}
-            >
-              {/* Status indicator */}
-              <div
-                className={cn(
-                  'flex items-center justify-center w-8 h-8 rounded-full',
-                  step.status === 'success' && 'bg-green-100 text-green-600',
-                  step.status === 'error' && 'bg-red-100 text-red-600',
-                  step.status === 'pending' && 'bg-gray-100 text-gray-400'
-                )}
-              >
-                {step.status === 'success' && <Check className="w-4 h-4" />}
-                {step.status === 'error' && <X className="w-4 h-4" />}
-                {step.status === 'pending' && <Clock className="w-4 h-4" />}
-              </div>
-
-              {/* Step content */}
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2">
-                  <span className="text-gray-400">{step.icon}</span>
-                  <span
-                    className={cn(
-                      'text-sm font-medium',
-                      step.status === 'error' ? 'text-red-700' : 'text-gray-900'
-                    )}
-                  >
-                    {step.name}
-                  </span>
-                </div>
-
-                {step.status === 'error' && (
-                  <div className="flex items-center gap-1 mt-1 text-xs text-red-600">
-                    <AlertCircle className="w-3 h-3" />
-                    <span>Empty result set - no fallback response configured</span>
-                  </div>
-                )}
-              </div>
-
-              {/* Duration badge */}
-              {step.duration && (
-                <span
-                  className={cn(
-                    "px-2 py-1 text-xs font-mono rounded border",
-                    step.status === 'error'
-                      ? 'bg-red-50 border-red-200 text-red-600'
-                      : 'bg-gray-50 border-gray-200 text-gray-600'
-                  )}
-                >
-                  <Clock className="w-3 h-3 inline mr-1" />
-                  {step.duration}
-                </span>
-              )}
-
-              <ChevronRight
-                className="w-4 h-4 text-gray-300 group-hover:text-gray-400 transition-colors"
-              />
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Performance summary footer */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
-          className="flex items-center gap-4 pt-4 mt-4 border-t border-gray-200 text-xs text-gray-500"
-        >
-          <div className="flex items-center gap-1.5">
-            <Zap className="w-3.5 h-3.5 text-cyan-500" />
-            <span>Total: 340ms</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <span className="font-mono">Input: 847 tok</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <span className="font-mono">Output: 2,000 tok</span>
-          </div>
-          <div className="ml-auto text-red-600 font-medium">
-            Cost: $0.024
-          </div>
-        </motion.div>
-      </div>
-    </div>
-  );
-}
-
-function DecisionTreeCard() {
-  return (
-    <div className="relative overflow-hidden rounded-2xl border-2 border-gray-200 bg-white shadow-lg hover:border-cyan-300 transition-all duration-300">
-      {/* Subtle gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-transparent to-transparent pointer-events-none" />
-
-      <div className="relative p-6">
-        <div className="flex items-start justify-between mb-6">
-          <div className="space-y-1">
-            <h3 className="text-xl font-semibold text-gray-900">
-              Decision Context
-            </h3>
-            <p className="text-sm text-gray-500">
-              Why the agent chose this path
-            </p>
-          </div>
-
-          <span className="px-2 py-1 text-xs font-medium bg-cyan-50 text-cyan-600 border border-cyan-200 rounded-md">
-            Step 3
-          </span>
-        </div>
-
-        {/* Reasoning chain */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="space-y-2 mb-6"
-        >
-          <h4 className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-            <Brain className="w-4 h-4 text-cyan-500" />
-            Reasoning Chain
-          </h4>
-          <div className="space-y-2 pl-6 border-l-2 border-cyan-200">
-            <div className="text-sm text-gray-600 leading-relaxed">
-              <p className="mb-2">
-                <span className="text-gray-800 font-medium">1.</span> Detected empty database results
-              </p>
-              <p className="mb-2">
-                <span className="text-gray-800 font-medium">2.</span> Checked for fallback template
-              </p>
-              <p className="text-red-600 font-medium">
-                <span className="text-gray-800">3.</span> No fallback configured → Error
-              </p>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Context values used */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className="space-y-3"
-        >
-          <h4 className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-            <Database className="w-4 h-4 text-cyan-500" />
-            Context Values Used
-          </h4>
-          <div className="space-y-2">
-            {contextValues.map((ctx, index) => (
-              <motion.div
-                key={ctx.key}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.6 + index * 0.1 }}
-                className="flex items-center justify-between p-2.5 rounded-lg bg-gray-50 border border-gray-200 hover:border-cyan-200 transition-colors"
-              >
-                <div className="flex items-center gap-3">
-                  <code className="text-xs font-mono text-cyan-600 px-2 py-0.5 bg-cyan-50 rounded">
-                    {ctx.key}
-                  </code>
-                  <span className="text-sm text-gray-700 font-medium">
-                    {ctx.value}
-                  </span>
-                </div>
-                <span className="px-2 py-0.5 text-xs text-gray-500 bg-gray-100 rounded border border-gray-200">
-                  {ctx.source}
-                </span>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Confidence score */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.9 }}
-          className="pt-4 mt-4 border-t border-gray-200"
-        >
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-sm font-semibold text-gray-700">
-              Decision Confidence
-            </span>
-            <span className="text-sm font-mono text-red-600 font-bold">
-              0%
-            </span>
-          </div>
-          <div className="relative h-2 bg-gray-100 rounded-full overflow-hidden">
-            <div
-              className="absolute inset-y-0 left-0 bg-gradient-to-r from-red-400 to-red-500 rounded-full"
-              style={{ width: '0%' }}
-            />
-          </div>
-          <p className="text-xs text-gray-500 mt-2">
-            Low confidence due to missing fallback configuration
-          </p>
-        </motion.div>
-      </div>
-    </div>
-  );
-}
-
-export function DashboardPreview({ className }: DashboardPreviewProps) {
+export function DashboardPreview({ className, onCtaClick }: DashboardPreviewProps) {
   return (
     <section
+      id="how-it-works"
       className={cn(
         'relative py-24 px-4 sm:px-6 lg:px-8',
         'bg-gradient-to-b from-gray-50 via-white to-gray-50',
@@ -351,55 +178,67 @@ export function DashboardPreview({ className }: DashboardPreviewProps) {
     >
       {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/3 left-1/3 w-96 h-96 bg-cyan-100/30 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/3 right-1/3 w-96 h-96 bg-blue-100/30 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-100/40 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-100/30 rounded-full blur-3xl" />
       </div>
 
-      <div className="relative max-w-7xl mx-auto">
+      <div className="relative max-w-4xl mx-auto">
         {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-12"
+          className="text-center mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-            See Inside Your Agent's Mind
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+            The 24-Hour Sprint
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Visual trace debugging that actually helps you fix issues
+          <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto">
+            We&apos;ve shipped 500+ vibe-coded apps. We&apos;ve turned the chaos into a system.
           </p>
         </motion.div>
 
-        {/* Dashboard cards */}
+        {/* Timeline */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-50px' }}
-          className="grid lg:grid-cols-2 gap-6"
+          className="relative"
         >
-          <motion.div variants={cardVariants}>
-            <TraceVisualizationCard />
-          </motion.div>
-
-          <motion.div variants={cardVariants}>
-            <DecisionTreeCard />
-          </motion.div>
+          {timelinePhases.map((phase, index) => (
+            <TimelinePhaseCard
+              key={phase.id}
+              phase={phase}
+              index={index}
+              isLast={index === timelinePhases.length - 1}
+            />
+          ))}
         </motion.div>
 
-        {/* Bottom CTA hint */}
+        {/* Bottom CTA */}
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 1, duration: 0.6 }}
+          transition={{ delay: 0.5, duration: 0.6 }}
           className="text-center mt-12"
         >
-          <p className="text-sm text-gray-500">
-            This is just a preview. The real dashboard is{' '}
-            <span className="text-cyan-600 font-semibold">way more powerful</span>.
+          <button
+            onClick={onCtaClick}
+            className={cn(
+              'inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-semibold rounded-xl transition-all',
+              'bg-cyan-500 text-white hover:bg-cyan-600',
+              'hover:shadow-xl hover:shadow-cyan-500/30 hover:scale-[1.02]'
+            )}
+          >
+            Start Your Sprint
+            <ArrowRight className="h-5 w-5" />
+          </button>
+
+          <p className="text-sm text-gray-500 mt-4">
+            Most projects launch in under 24 hours
           </p>
         </motion.div>
       </div>

@@ -4,10 +4,10 @@ import { cn } from '../../lib/utils';
 import { Workflow } from 'lucide-react';
 
 const footerLinks = [
-  { label: 'Product', href: '#product' },
-  { label: 'Docs', href: '#docs' },
+  { label: 'How It Works', href: '#how-it-works' },
+  { label: 'What We Add', href: '#features' },
   { label: 'Pricing', href: '#pricing' },
-  { label: 'Blog', href: '#blog' },
+  { label: 'FAQ', href: '#faq' },
 ];
 
 const socialLinks = [
@@ -73,7 +73,7 @@ export default function Footer() {
               <span className="text-xl font-bold text-gray-900">AgentLens</span>
             </div>
             <p className="text-sm text-gray-600 max-w-xs">
-              Know why your agents fail.
+              Production engineering for the AI era.
             </p>
           </div>
 
@@ -113,9 +113,12 @@ export default function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="mt-12 border-t border-gray-200 pt-8">
+        <div className="mt-12 border-t border-gray-200 pt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <p className="text-xs text-gray-500">
             &copy; 2026 AgentLens. All rights reserved.
+          </p>
+          <p className="text-xs text-gray-500">
+            Questions? <a href="mailto:hello@agentlens.app" className="text-cyan-500 hover:text-cyan-600 transition-colors">hello@agentlens.app</a>
           </p>
         </div>
       </div>

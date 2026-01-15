@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Play, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const ease = [0.16, 1, 0.3, 1];
@@ -36,18 +36,18 @@ function Hero({ className, onPrimaryClick, onSecondaryClick }: HeroProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease }}
           >
-            When Your Agent Fails, Know Exactly Why in{' '}
-            <span className="text-cyan-500">60 Seconds</span>.
+            You vibe-coded it. We ship it.{' '}
+            <span className="text-cyan-500">24 hours.</span>
           </motion.h1>
 
           {/* Subheadline */}
           <motion.p
-            className="text-lg sm:text-xl lg:text-2xl text-gray-600 max-w-2xl"
+            className="text-lg sm:text-xl lg:text-2xl text-gray-600 max-w-3xl"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.8, ease }}
           >
-            Paste a trace. See what happened. Fix it and go back to sleep.
+            Claude, Cursor, or Replit built your app in minutes. We make it production-ready in 24 hours. Outcome-based pricing means you only pay when it ships.
           </motion.p>
 
           {/* CTA Buttons */}
@@ -67,12 +67,13 @@ function Hero({ className, onPrimaryClick, onSecondaryClick }: HeroProps) {
                 'w-full sm:w-auto'
               )}
             >
-              Paste Your First Trace - Free
+              Ship Your App Tomorrow
               <ArrowRight className="h-5 w-5" />
             </button>
 
             {/* Secondary CTA - Border style */}
-            <button
+            <a
+              href="#how-it-works"
               onClick={onSecondaryClick}
               className={cn(
                 'inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-semibold rounded-xl transition-all',
@@ -80,9 +81,8 @@ function Hero({ className, onPrimaryClick, onSecondaryClick }: HeroProps) {
                 'w-full sm:w-auto'
               )}
             >
-              <Play className="h-5 w-5" />
-              Watch Demo
-            </button>
+              See How It Works
+            </a>
           </motion.div>
 
           {/* Trust Line */}
@@ -92,7 +92,7 @@ function Hero({ className, onPrimaryClick, onSecondaryClick }: HeroProps) {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.6 }}
           >
-            No signup required. See your agent&apos;s execution instantly.
+            500+ AI-built apps shipped | 24-hour average turnaround | Pay only when it ships
           </motion.p>
         </div>
       </div>
