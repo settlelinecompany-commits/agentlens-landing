@@ -31,7 +31,7 @@ function Hero({ className, onPrimaryClick, onSecondaryClick }: HeroProps) {
         <div className="flex flex-col items-center text-center space-y-8">
           {/* Headline */}
           <motion.h1
-            className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-gray-900 max-w-4xl"
+            className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-gray-900 max-w-4xl"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease }}

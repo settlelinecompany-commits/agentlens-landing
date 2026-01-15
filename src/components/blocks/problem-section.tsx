@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import { Cloud, Clock, AlertTriangle, Code, Shield } from 'lucide-react';
+import { Cloud, Clock, AlertTriangle, Code, Shield, DollarSign } from 'lucide-react';
 
 const painPoints = [
   {
@@ -39,6 +39,13 @@ const painPoints = [
     quote: 'Wait, is my API key just... exposed?',
     description:
       "You built fast. Maybe too fast. Now you're not sure what's secure and what isn't. Auth is 'good enough.' Data handling is 'probably fine.' You're one security audit away from panic.",
+  },
+  {
+    icon: DollarSign,
+    title: 'The Cost Spiral',
+    quote: 'Web search API bill hit $3K in two weeks. More than we were spending on GPT-5.',
+    description:
+      "Your agent makes 30-40 API calls per task. At $6-8 per thousand calls, costs spiral fast. Claude Opus 4.5 costs 3x what you budgeted. You have no idea which part of your code is burning tokens.",
   },
 ];
 
@@ -77,9 +84,9 @@ export function ProblemSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
         >
-          <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">
             Sound Familiar?
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -92,7 +99,7 @@ export function ProblemSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-50px' }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
         >
           {painPoints.map((point, index) => {
             const IconComponent = point.icon;
@@ -101,14 +108,10 @@ export function ProblemSection() {
                 key={index}
                 variants={itemVariants}
                 className={cn(
-                  'group relative p-6 rounded-xl',
+                  'group relative p-4 sm:p-6 rounded-xl',
                   'bg-white border-2 border-gray-200 shadow-sm',
                   'hover:border-red-200 hover:shadow-md',
-                  'transition-all duration-300',
-                  // Center the last two cards on desktop when we have 5 items
-                  index >= 3 && 'lg:col-span-1',
-                  index === 3 && 'lg:col-start-1',
-                  index === 4 && 'lg:col-start-2 md:col-start-2'
+                  'transition-all duration-300'
                 )}
               >
                 {/* Red accent indicator */}

@@ -69,6 +69,12 @@ function Navbar({ className }: NavbarProps) {
             >
               FAQ
             </a>
+            <a
+              href="/blog"
+              className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
+            >
+              Blog
+            </a>
           </div>
 
           {/* Desktop CTA Button */}
@@ -135,6 +141,13 @@ function Navbar({ className }: NavbarProps) {
             className="text-base font-medium text-gray-600 hover:text-gray-900 py-2 border-b border-gray-100 transition-colors"
           >
             FAQ
+          </a>
+          <a
+            href="/blog"
+            onClick={handleLinkClick}
+            className="text-base font-medium text-gray-600 hover:text-gray-900 py-2 border-b border-gray-100 transition-colors"
+          >
+            Blog
           </a>
           <a
             href="#pricing"

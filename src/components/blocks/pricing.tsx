@@ -46,9 +46,9 @@ export function Pricing() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-12"
+          className="text-center mb-10 sm:mb-12"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
             Outcome-Based Pricing
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -62,7 +62,7 @@ export function Pricing() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-50px' }}
-          className="relative p-8 sm:p-10 rounded-2xl bg-white border-2 border-cyan-400 shadow-xl shadow-cyan-100 transition-all duration-300 hover:shadow-2xl hover:shadow-cyan-200"
+          className="relative p-6 sm:p-8 md:p-10 rounded-xl sm:rounded-2xl bg-white border-2 border-cyan-400 shadow-xl shadow-cyan-100 transition-all duration-300 hover:shadow-2xl hover:shadow-cyan-200"
         >
           {/* Badge */}
           <div className="absolute -top-3 left-1/2 -translate-x-1/2">
@@ -71,12 +71,12 @@ export function Pricing() {
             </span>
           </div>
 
-          <div className="text-center mb-8">
-            <h3 className="text-2xl font-semibold text-gray-900 mb-4">
+          <div className="text-center mb-6 sm:mb-8">
+            <h3 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-3 sm:mb-4">
               24-Hour Sprint
             </h3>
             <div className="flex items-baseline justify-center gap-2">
-              <span className="text-5xl sm:text-6xl font-bold text-gray-900">
+              <span className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900">
                 $2,400
               </span>
             </div>
@@ -85,11 +85,11 @@ export function Pricing() {
             </p>
           </div>
 
-          <div className="border-t border-gray-100 pt-8">
+          <div className="border-t border-gray-100 pt-6 sm:pt-8">
             <p className="text-sm font-medium text-gray-700 mb-4 text-center">
               Everything you need to ship:
             </p>
-            <ul className="space-y-3 max-w-md mx-auto">
+            <ul className="space-y-2 sm:space-y-3 max-w-md mx-auto">
               {features.map((feature, index) => (
                 <motion.li
                   key={index}
@@ -108,8 +108,8 @@ export function Pricing() {
           </div>
 
           {/* CTA Button */}
-          <div className="mt-8">
-            <button className="w-full py-4 px-6 rounded-lg font-semibold text-base bg-cyan-500 text-white hover:bg-cyan-600 hover:shadow-lg hover:shadow-cyan-200 transition-all duration-200">
+          <div className="mt-6 sm:mt-8">
+            <button className="w-full py-3 sm:py-4 px-6 rounded-lg font-semibold text-base bg-cyan-500 text-white hover:bg-cyan-600 hover:shadow-lg hover:shadow-cyan-200 transition-all duration-200 min-h-[48px]">
               Get Your Quote
             </button>
           </div>
@@ -132,19 +132,19 @@ export function Pricing() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.5, duration: 0.5 }}
-          className="mt-10 p-6 sm:p-8 rounded-xl bg-gradient-to-br from-cyan-50 to-cyan-100/50 border border-cyan-200"
+          className="mt-8 sm:mt-10 p-4 sm:p-6 md:p-8 rounded-xl bg-gradient-to-br from-cyan-50 to-cyan-100/50 border border-cyan-200"
         >
-          <div className="flex items-start gap-4">
+          <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-4">
             <div className="flex-shrink-0">
-              <div className="w-12 h-12 rounded-full bg-cyan-500 flex items-center justify-center">
-                <Shield className="w-6 h-6 text-white" />
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-cyan-500 flex items-center justify-center">
+                <Shield className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
               </div>
             </div>
             <div>
-              <h4 className="text-lg font-semibold text-gray-900 mb-2">
+              <h4 className="text-base sm:text-lg font-semibold text-gray-900 mb-1 sm:mb-2">
                 The AgentLens Guarantee
               </h4>
-              <p className="text-gray-600">
+              <p className="text-sm sm:text-base text-gray-600">
                 If we can&apos;t ship your app in 24 hours, you don&apos;t pay. No questions, no negotiations. You keep all the code and improvements we&apos;ve made.
               </p>
             </div>

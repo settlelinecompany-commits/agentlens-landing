@@ -96,7 +96,7 @@ function TimelinePhaseCard({ phase, index, isLast }: TimelinePhaseCardProps) {
   return (
     <motion.div
       variants={phaseVariants}
-      className="relative flex gap-6 md:gap-8"
+      className="relative flex gap-4 sm:gap-6 md:gap-8"
     >
       {/* Timeline line and node */}
       <div className="flex flex-col items-center">
@@ -106,7 +106,7 @@ function TimelinePhaseCard({ phase, index, isLast }: TimelinePhaseCardProps) {
           whileInView={{ scale: 1 }}
           viewport={{ once: true }}
           transition={{ delay: index * 0.15, duration: 0.4, type: 'spring' }}
-          className="relative z-10 flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-gradient-to-br from-cyan-500 to-cyan-600 text-white shadow-lg shadow-cyan-500/30"
+          className="relative z-10 flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-br from-cyan-500 to-cyan-600 text-white shadow-lg shadow-cyan-500/30 flex-shrink-0"
         >
           {phase.icon}
         </motion.div>
@@ -119,19 +119,19 @@ function TimelinePhaseCard({ phase, index, isLast }: TimelinePhaseCardProps) {
             viewport={{ once: true }}
             transition={{ delay: index * 0.15 + 0.2, duration: 0.5 }}
             style={{ transformOrigin: 'top' }}
-            className="w-0.5 flex-1 min-h-[80px] bg-gradient-to-b from-cyan-400 to-cyan-200"
+            className="w-0.5 flex-1 min-h-[60px] sm:min-h-[80px] bg-gradient-to-b from-cyan-400 to-cyan-200"
           />
         )}
       </div>
 
       {/* Content card */}
-      <div className="flex-1 pb-12">
+      <div className="flex-1 pb-8 sm:pb-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: index * 0.15 + 0.1, duration: 0.5 }}
-          className="group relative overflow-hidden rounded-2xl border-2 border-gray-200 bg-white p-6 shadow-sm hover:border-cyan-300 hover:shadow-lg transition-all duration-300"
+          className="group relative overflow-hidden rounded-xl sm:rounded-2xl border-2 border-gray-200 bg-white p-4 sm:p-6 shadow-sm hover:border-cyan-300 hover:shadow-lg transition-all duration-300"
         >
           {/* Subtle gradient overlay */}
           <div className="absolute inset-0 bg-gradient-to-br from-cyan-50/50 via-transparent to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -139,19 +139,19 @@ function TimelinePhaseCard({ phase, index, isLast }: TimelinePhaseCardProps) {
           <div className="relative">
             {/* Hour badge */}
             <div className="flex items-center gap-3 mb-3">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 text-sm font-semibold bg-cyan-50 text-cyan-700 border border-cyan-200 rounded-full">
-                <Clock className="w-3.5 h-3.5" />
+              <span className="inline-flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 text-xs sm:text-sm font-semibold bg-cyan-50 text-cyan-700 border border-cyan-200 rounded-full whitespace-nowrap">
+                <Clock className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                 Hour {phase.hours}
               </span>
             </div>
 
             {/* Title */}
-            <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+            <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-2 sm:mb-3">
               {phase.title}
             </h3>
 
             {/* Description */}
-            <p className="text-gray-600 leading-relaxed">
+            <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
               {phase.description}
             </p>
           </div>
@@ -189,7 +189,7 @@ export function DashboardPreview({ className, onCtaClick }: DashboardPreviewProp
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
             The 24-Hour Sprint
@@ -223,14 +223,15 @@ export function DashboardPreview({ className, onCtaClick }: DashboardPreviewProp
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.5, duration: 0.6 }}
-          className="text-center mt-12"
+          className="text-center mt-8 sm:mt-12"
         >
           <button
             onClick={onCtaClick}
             className={cn(
-              'inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-semibold rounded-xl transition-all',
+              'inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 text-base font-semibold rounded-xl transition-all',
               'bg-cyan-500 text-white hover:bg-cyan-600',
-              'hover:shadow-xl hover:shadow-cyan-500/30 hover:scale-[1.02]'
+              'hover:shadow-xl hover:shadow-cyan-500/30 hover:scale-[1.02]',
+              'w-full sm:w-auto'
             )}
           >
             Start Your Sprint

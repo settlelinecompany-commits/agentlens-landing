@@ -16,7 +16,7 @@ export default function FinalCTA({ className, onPrimaryClick, onSecondaryClick }
   return (
     <section
       className={cn(
-        'relative py-24 md:py-32 overflow-hidden',
+        'relative py-16 sm:py-24 md:py-32 overflow-hidden',
         'bg-gradient-to-b from-white to-cyan-50',
         className
       )}
@@ -27,10 +27,10 @@ export default function FinalCTA({ className, onPrimaryClick, onSecondaryClick }
       </div>
 
       <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col items-center text-center space-y-8">
+        <div className="flex flex-col items-center text-center space-y-6 sm:space-y-8">
           {/* Header */}
           <motion.h2
-            className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-gray-900"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-gray-900"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -41,7 +41,7 @@ export default function FinalCTA({ className, onPrimaryClick, onSecondaryClick }
 
           {/* Subheader */}
           <motion.p
-            className="text-lg sm:text-xl text-gray-600 max-w-2xl"
+            className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -62,10 +62,10 @@ export default function FinalCTA({ className, onPrimaryClick, onSecondaryClick }
             <button
               onClick={onPrimaryClick}
               className={cn(
-                'inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-semibold rounded-xl transition-all',
+                'inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 text-base font-semibold rounded-xl transition-all',
                 'bg-cyan-500 text-white hover:bg-cyan-600',
                 'hover:shadow-xl hover:shadow-cyan-500/30 hover:scale-[1.02]',
-                'w-full sm:w-auto'
+                'w-full sm:w-auto min-h-[48px]'
               )}
             >
               Ship Your App Tomorrow
@@ -76,9 +76,9 @@ export default function FinalCTA({ className, onPrimaryClick, onSecondaryClick }
             <button
               onClick={onSecondaryClick}
               className={cn(
-                'inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-semibold rounded-xl transition-all',
+                'inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 text-base font-semibold rounded-xl transition-all',
                 'bg-white text-gray-700 border-2 border-gray-300 hover:bg-gray-50 hover:border-gray-400',
-                'w-full sm:w-auto'
+                'w-full sm:w-auto min-h-[48px]'
               )}
             >
               <Send className="h-5 w-5" />
@@ -99,7 +99,7 @@ export default function FinalCTA({ className, onPrimaryClick, onSecondaryClick }
 
           {/* Trust Line */}
           <motion.div
-            className="flex flex-wrap justify-center gap-x-6 gap-y-2 pt-4 text-sm text-gray-500"
+            className="flex flex-wrap justify-center gap-x-4 sm:gap-x-6 gap-y-2 pt-4 text-xs sm:text-sm text-gray-500"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}

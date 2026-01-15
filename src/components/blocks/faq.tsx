@@ -68,13 +68,13 @@ function AccordionItem({
       <button
         onClick={onClick}
         className={cn(
-          'w-full py-6 flex items-center justify-between text-left',
+          'w-full py-4 sm:py-6 flex items-center justify-between text-left min-h-[48px]',
           'group transition-colors duration-200'
         )}
         aria-expanded={isOpen}
       >
         <span className={cn(
-          'text-lg font-medium transition-colors duration-200',
+          'text-base sm:text-lg font-medium transition-colors duration-200 pr-2',
           isOpen ? 'text-gray-900' : 'text-gray-600 group-hover:text-gray-900'
         )}>
           {question}
@@ -83,7 +83,7 @@ function AccordionItem({
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.2 }}
           className={cn(
-            'flex-shrink-0 ml-4',
+            'flex-shrink-0 ml-2 sm:ml-4 w-8 h-8 sm:w-auto sm:h-auto flex items-center justify-center',
             isOpen ? 'text-cyan-500' : 'text-gray-400'
           )}
         >
@@ -100,7 +100,7 @@ function AccordionItem({
             transition={{ duration: 0.3, ease: 'easeInOut' }}
             className="overflow-hidden"
           >
-            <p className="pb-6 text-gray-600 leading-relaxed pr-4 sm:pr-8">
+            <p className="pb-4 sm:pb-6 text-sm sm:text-base text-gray-600 leading-relaxed pr-2 sm:pr-8">
               {answer}
             </p>
           </motion.div>
@@ -125,9 +125,9 @@ export function FAQ() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-12"
+          className="text-center mb-10 sm:mb-12"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
             Questions
           </h2>
           <p className="text-lg text-gray-600">
@@ -135,7 +135,7 @@ export function FAQ() {
           </p>
         </motion.div>
 
-        <div className="divide-y divide-gray-200 border-t border-gray-200 bg-white rounded-2xl shadow-sm p-6">
+        <div className="divide-y divide-gray-200 border-t border-gray-200 bg-white rounded-xl sm:rounded-2xl shadow-sm p-4 sm:p-6">
           {faqs.map((faq, index) => (
             <AccordionItem
               key={index}
@@ -154,7 +154,7 @@ export function FAQ() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.4, duration: 0.5 }}
-          className="mt-12 text-center"
+          className="mt-10 sm:mt-12 text-center"
         >
           <p className="text-gray-500 mb-4">
             Still have questions?
@@ -162,10 +162,11 @@ export function FAQ() {
           <a
             href="#contact"
             className={cn(
-              'inline-flex items-center gap-2 px-4 py-2 rounded-lg',
+              'inline-flex items-center gap-2 px-5 py-3 sm:px-4 sm:py-2 rounded-lg',
               'text-sm font-medium text-cyan-600',
               'border-2 border-cyan-200 hover:bg-cyan-50',
-              'transition-colors duration-200'
+              'transition-colors duration-200',
+              'min-h-[44px]'
             )}
           >
             <MessageCircle className="w-4 h-4" />

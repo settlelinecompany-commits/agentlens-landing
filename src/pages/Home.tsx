@@ -1,5 +1,6 @@
 import Navbar from '../components/blocks/navbar';
 import Hero from '../components/blocks/hero';
+import TrustBar from '../components/blocks/trust-bar';
 import ProblemSection from '../components/blocks/problem-section';
 import DashboardPreview from '../components/blocks/dashboard-preview';
 import Features from '../components/blocks/features';
@@ -14,6 +15,7 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
+        <TrustBar />
         <ProblemSection />
         <DashboardPreview />
         <Features />

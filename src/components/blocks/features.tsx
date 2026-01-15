@@ -135,9 +135,9 @@ export function Features() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
             We Add What AI Leaves Out
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -150,7 +150,7 @@ export function Features() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-50px' }}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
         >
           {features.map((feature, index) => {
             const colors = getColorClasses(feature.color);
@@ -162,7 +162,7 @@ export function Features() {
                 variants={cardVariants}
                 whileHover={{ y: -6 }}
                 className={cn(
-                  'group relative p-6 rounded-2xl',
+                  'group relative p-4 sm:p-6 rounded-xl sm:rounded-2xl',
                   'bg-white border-2 border-gray-200 shadow-sm',
                   colors.border,
                   'hover:shadow-lg',
@@ -170,13 +170,13 @@ export function Features() {
                 )}
               >
                 {/* Icon with background */}
-                <div className="relative mb-4">
+                <div className="relative mb-3 sm:mb-4">
                   <div className={cn(
-                    'w-12 h-12 rounded-xl flex items-center justify-center',
+                    'w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl flex items-center justify-center',
                     colors.iconBg,
                     'border border-white shadow-sm'
                   )}>
-                    <IconComponent className={cn('w-6 h-6', colors.icon)} />
+                    <IconComponent className={cn('w-5 h-5 sm:w-6 sm:h-6', colors.icon)} />
                   </div>
                 </div>
 

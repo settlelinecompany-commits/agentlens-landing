@@ -8,6 +8,7 @@ const footerLinks = [
   { label: 'What We Add', href: '#features' },
   { label: 'Pricing', href: '#pricing' },
   { label: 'FAQ', href: '#faq' },
+  { label: 'Blog', href: '/blog' },
 ];
 
 const socialLinks = [
