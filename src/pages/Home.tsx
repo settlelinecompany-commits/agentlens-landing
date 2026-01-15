@@ -27,8 +27,8 @@ export default function Home() {
       <main>
         <Hero />
         <TrustBar />
-        <ProblemSection />
         <TransformationCards />
+        <ProblemSection />
         <DashboardPreview />
         <Features />
         <Pricing />
