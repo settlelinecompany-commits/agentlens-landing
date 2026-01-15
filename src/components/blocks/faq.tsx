@@ -110,7 +110,11 @@ function AccordionItem({
   );
 }
 
-export function FAQ() {
+interface FAQProps {
+  onCtaClick?: () => void;
+}
+
+export function FAQ({ onCtaClick }: FAQProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const handleToggle = (index: number) => {
@@ -159,8 +163,8 @@ export function FAQ() {
           <p className="text-gray-500 mb-4">
             Still have questions?
           </p>
-          <a
-            href="#contact"
+          <button
+            onClick={onCtaClick}
             className={cn(
               'inline-flex items-center gap-2 px-5 py-3 sm:px-4 sm:py-2 rounded-lg',
               'text-sm font-medium text-cyan-600',
@@ -171,7 +175,7 @@ export function FAQ() {
           >
             <MessageCircle className="w-4 h-4" />
             Get in touch
-          </a>
+          </button>
         </motion.div>
       </div>
     </section>

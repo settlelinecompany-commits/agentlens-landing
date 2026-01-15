@@ -6,9 +6,10 @@ import { cn } from '@/lib/utils';
 
 interface NavbarProps {
   className?: string;
+  onCtaClick?: () => void;
 }
 
-function Navbar({ className }: NavbarProps) {
+function Navbar({ className, onCtaClick }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -78,8 +79,8 @@ function Navbar({ className }: NavbarProps) {
           </div>
 
           {/* Desktop CTA Button */}
-          <a
-            href="#pricing"
+          <button
+            onClick={onCtaClick}
             className={cn(
               'hidden md:inline-flex items-center justify-center px-4 py-2 text-sm font-semibold rounded-lg transition-all',
               'bg-cyan-500 text-white hover:bg-cyan-600',
@@ -87,7 +88,7 @@ function Navbar({ className }: NavbarProps) {
             )}
           >
             Ship Your App
-          </a>
+          </button>
 
           {/* Mobile Hamburger Button */}
           <button
@@ -149,9 +150,11 @@ function Navbar({ className }: NavbarProps) {
           >
             Blog
           </a>
-          <a
-            href="#pricing"
-            onClick={handleLinkClick}
+          <button
+            onClick={() => {
+              handleLinkClick();
+              onCtaClick?.();
+            }}
             className={cn(
               'inline-flex items-center justify-center px-4 py-3 text-base font-semibold rounded-lg transition-all mt-4',
               'bg-cyan-500 text-white hover:bg-cyan-600',
@@ -159,7 +162,7 @@ function Navbar({ className }: NavbarProps) {
             )}
           >
             Ship Your App
-          </a>
+          </button>
         </div>
       </div>
     </nav>

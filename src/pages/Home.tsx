@@ -32,7 +32,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Navbar />
+      <Navbar onCtaClick={openModal} />
       <main>
         <Hero onPrimaryClick={openModal} />
         <TrustBar />
@@ -41,7 +41,7 @@ export default function Home() {
         <DashboardPreview onCtaClick={openModal} />
         <Features />
         <Pricing onCtaClick={openModal} />
-        <FAQ />
+        <FAQ onCtaClick={openModal} />
         <FinalCTA onPrimaryClick={openModal} onSecondaryClick={openModal} />
         <BlogSection posts={featuredPosts} />
       </main>
