@@ -2,6 +2,7 @@ import Navbar from '../components/blocks/navbar';
 import Hero from '../components/blocks/hero';
 import TrustBar from '../components/blocks/trust-bar';
 import ProblemSection from '../components/blocks/problem-section';
+import TransformationCards from '../components/blocks/transformation-cards';
 import DashboardPreview from '../components/blocks/dashboard-preview';
 import Features from '../components/blocks/features';
 import Pricing from '../components/blocks/pricing';
@@ -17,6 +18,7 @@ export default function Home() {
         <Hero />
         <TrustBar />
         <ProblemSection />
+        <TransformationCards />
         <DashboardPreview />
         <Features />
         <Pricing />
