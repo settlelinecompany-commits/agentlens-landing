@@ -89,13 +89,38 @@ Context rot is real. Every irrelevant token degrades performance. Models can deg
 
 ### CLAUDE.md Discipline
 
-Keep it hyper lean. Every token must earn its place.
+Keep it hyper lean. Every token must earn its place. **Aim for 3-5 lines** in your global CLAUDE.md—only patterns that are useful in every single session (like "always launch Opus subagents").
 
 **Signs your CLAUDE.md is too bloated:**
 - Content about multiple unrelated projects
 - Instructions you don't remember adding
 - You haven't reviewed it in over a week
 - It's longer than ~50 lines
+
+### The Context Collapse Trap
+
+The naive solution to a bloated CLAUDE.md is having the LLM summarize or consolidate it. **Don't do this.** Here's what happens:
+
+1. **Information loss** - Each compaction loses nuance. Your carefully crafted patterns get diluted.
+2. **Catastrophic rewrite risk** - Every time you ask Claude to "clean up" your CLAUDE.md, there's a small chance (say 3%) of context collapse—where the model hallucinates and nukes your file down to 100-200 useless tokens.
+3. **Context pollution** - After a bad compaction, your condensed CLAUDE.md can actually perform *worse than having no CLAUDE.md at all*. A little bad context distracts the model more than no context.
+
+This is why people post on Twitter that "Opus 4.5 feels nerfed"—they've quietly poisoned their own context without realizing it.
+
+### Advanced: Agentic Context Engineering (ACE)
+
+For power users who want evolving playbooks without the collapse risk, there's ACE—a RAG-based approach from Stanford research.
+
+**The architecture:**
+1. **Generator** - Executes tasks, retrieves relevant "bullets" (if-then patterns) from a vector database
+2. **Reflector** - Analyzes execution traces, extracts new lessons as bullet candidates
+3. **Curator** - Adds bullets to the database, deduplicates, and manages a voting system
+
+**The voting system:** Each bullet tracks helpful/harmful counts. If a bullet accumulates negative votes (e.g., -3), it gets dropped. Your playbook evolves and self-corrects.
+
+**Watch for the poisoning problem:** If a task fails for reason X but the reflector misdiagnoses it as reason Y, a bad bullet can propagate. Example: Animation crashes at 60fps due to a memory bug, but the reflector learns "use 30fps for complex scenes." Now that bullet conflicts with your actual preferences, causing context confusion.
+
+**Bottom line:** ACE is powerful for domain-specific training (animation styles, specific tech stacks), but requires clear success/failure signals. For most users, keeping CLAUDE.md lean (3-5 lines) is the safer approach.
 
 ### Compaction Strategy
 
@@ -191,6 +216,7 @@ Have models interview you more than they currently do. Plan mode questions are o
 | Bug fixed but context polluted | Double-escape → restore conversation only |
 | Claude looping/runaway | Double-escape → restore both code and conversation |
 | CLAUDE.md bloated | Weekly review, repo-specific files, ruthless trim |
+| CLAUDE.md needs cleanup | DON'T let Claude rewrite it—risk of context collapse |
 | Subagents using wrong model | Add "Always launch opus subagents" to CLAUDE.md |
 | Hallucination poisoning chain | Isolated tasks, Agent X validates Agent Y |
 | Typing prompts is slow | Reprompter: voice → questions → structured prompt |
