@@ -52,22 +52,50 @@ export function ContactFormModal({ isOpen, onClose }: ContactFormModalProps) {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission - replace with actual API call
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    try {
+      // Get human-readable labels for the selected values
+      const toolLabel = buildTools.find(t => t.value === formData.tool)?.label || formData.tool;
+      const blockerLabel = blockers.find(b => b.value === formData.blocker)?.label || formData.blocker;
 
-    // Here you would send to your backend/email service
-    console.log('Form submitted:', formData);
+      // Submit to Web3Forms
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          access_key: 'b88e3f3a-713b-4142-a06d-342e95038913',
+          subject: `New AgentLens Lead: ${formData.email}`,
+          from_name: 'AgentLens Website',
+          email: formData.email,
+          tool_used: toolLabel,
+          main_blocker: blockerLabel,
+          message: `New lead from AgentLens landing page:\n\nEmail: ${formData.email}\nTool Used: ${toolLabel}\nMain Blocker: ${blockerLabel}`,
+        }),
+      });
 
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+      const result = await response.json();
 
-    // Reset and close after showing success
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setStep(1);
-      setFormData({ tool: '', blocker: '', email: '' });
-      onClose();
-    }, 2000);
+      if (result.success) {
+        setIsSubmitted(true);
+        // Reset and close after showing success
+        setTimeout(() => {
+          setIsSubmitted(false);
+          setStep(1);
+          setFormData({ tool: '', blocker: '', email: '' });
+          onClose();
+        }, 2000);
+      } else {
+        console.error('Form submission failed:', result);
+        alert('Something went wrong. Please try again or email us at support@agentlens.app');
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      alert('Something went wrong. Please try again or email us at support@agentlens.app');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleClose = () => {
